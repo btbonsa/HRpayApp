@@ -48,9 +48,9 @@ const PaymentForm = ({ punishment, student, onPaymentSuccess, onCancel }: Paymen
     setError('');
 
     // Validate Ethiopian phone number
-    const phoneRegex = /^(09|07|\+2519|\+2517)\d{8}$/;
+    const phoneRegex = /^(07|\+2517)\d{8}$/;
     if (!phoneRegex.test(phoneNumber.replace(/\s/g, ''))) {
-      setError('Please enter a valid Ethiopian phone number (e.g., 0912345678)');
+      setError('Please enter a valid M-Pesa phone number (e.g., 0712345678)');
       return;
     }
 
@@ -195,7 +195,7 @@ const PaymentForm = ({ punishment, student, onPaymentSuccess, onCancel }: Paymen
             <TextInput
               value={phoneNumber}
               onChangeText={setPhoneNumber}
-              placeholder="0912345678"
+              placeholder="0712345678"
               keyboardType="phone-pad"
               className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg"
             />

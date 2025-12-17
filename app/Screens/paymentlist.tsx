@@ -68,7 +68,7 @@ const PaymentList = ({ punishments, onPayClick }: PaymentListProps) => {
   return (
     <ScrollView className="flex-1 bg-gray-100">
       <View className="bg-white m-4 p-4 rounded-lg shadow-md">
-        <Text className="text-xl  text-gray-900 mb-6">Book Punishments</Text>
+        <Text className="text-xl  text-gray-500 mb-6 font-serif">Book Punishments</Text>
 
         {punishments.length === 0 && (
           <View className="items-center py-8">
@@ -79,7 +79,7 @@ const PaymentList = ({ punishments, onPayClick }: PaymentListProps) => {
 
         {pendingPunishments.length > 0 && (
           <View className="mb-6">
-            <Text className="text-lg text-gray-900 mb-3">Pending Payments</Text>
+            <Text className="text-lg text-gray-900 mb-3 font-serif">Pending </Text>
             {pendingPunishments.map((punishment) => (
               <View
                 key={punishment.id}
@@ -89,7 +89,7 @@ const PaymentList = ({ punishments, onPayClick }: PaymentListProps) => {
                   <View className="flex-row items-start gap-2">
                     <AlertCircle size={20} color="#dc2626" />
                     <View className="flex-1">
-                      <Text className="text-base text-gray-900">{punishment.type}</Text>
+                      <Text className="text-base font-serif text-gray-900">{punishment.type}</Text>
                       <Text className="text-sm text-gray-600 mt-1">{punishment.description}</Text>
                     </View>
                   </View>
@@ -103,10 +103,10 @@ const PaymentList = ({ punishments, onPayClick }: PaymentListProps) => {
                     Amount: {punishment.amount} ETB
                   </Text>
                   <TouchableOpacity
-                    className="bg-blue-600 rounded-lg px-4 py-2"
+                    className="bg-blue-400 rounded-lg px-1 py-1"
                     onPress={() => handlePayClick(punishment)}
                   >
-                    <Text className="text-white font-semibold">Pay Now</Text>
+                    <Text className="text-white text-sm ">Pay Now</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -125,7 +125,7 @@ const PaymentList = ({ punishments, onPayClick }: PaymentListProps) => {
                 <View className="flex-row items-start gap-2 mb-2">
                   <CheckCircle size={20} color="#16a34a" />
                   <View className="flex-1">
-                    <Text className="text-base font-semibold text-gray-900">{punishment.type}</Text>
+                    <Text className="text-base font-serif text-gray-900">{punishment.type}</Text>
                     <Text className="text-sm text-gray-600 mt-1">{punishment.description}</Text>
                   </View>
                 </View>

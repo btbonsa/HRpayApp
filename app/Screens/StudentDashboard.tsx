@@ -4,122 +4,97 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
+  Image,
 } from "react-native";
+import { useState } from "react";
 import React from "react";
 import {
   MenuIcon,
-  User,
-  CreditCard,
-  Building,
-  Calendar,
-  AlertCircle
-
+  LogOutIcon,
 } from "lucide-react-native";
-import PaymentList from './paymentlist';
+import { router } from "expo-router";
+import PaymentList from "./paymentlist";
 
 const StudentDashboard = () => {
   const handlePayClick = (punishment: any) => {
-    console.log('Pay clicked for:', punishment);
+    console.log("Pay clicked for:", punishment);
     // Add payment logic here
   };
 
   const samplePunishments = [
     {
-      id: '1',
-      type: 'Late Book Return',
-      description: 'Return book 3 days late',
-      date: '2024-12-15',
+      id: "1",
+      type: "Late Book Return",
+      description: "Return book 3 days late",
+      date: "2024-12-15",
       amount: 50,
-      status: 'pending' as const
+      status: "pending" as const,
     },
     {
-      id: '2',
-      type: 'Book Damage',
-      description: 'Damaged book cover',
-      date: '2024-12-10',
+      id: "2",
+      type: "Book Damage",
+      description: "Damaged book cover",
+      date: "2024-12-10",
       amount: 25,
-      status: 'paid' as const
-    }
+      status: "paid" as const,
+    },
   ];
+
+  const MenuItems = [
+    { label: "Settings" },
+    {
+      label: "Logout",
+      onPress: () => router.push("/Login"),
+      icon: <LogOutIcon />,
+    },
+  ];
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <View className="flex bg-gray-100 w-full h-full max-h-200">
       {/* 1. Header Section */}
-      <View className="flex-row h-24 bg-blue-500 items-center justify-between px-4 pt-8 shadow-md">
-        <Text className="text-white text-lg font-semibold">Student Portal</Text>
-        <TouchableOpacity className="p-2">
-          <MenuIcon size={24} color="white" />
-        </TouchableOpacity>
+      <View className="flex-row h-28 bg-green-600 items-center justify-between px-4 pt-8 shadow-md">
+        <View
+          className="w-12 h-12 rounded-3xl bg-white/20 backdrop-blur-sm items-center justify-center border-2 border-white/30"
+          style={{ zIndex: 1000, elevation: 10 }}
+        >
+          <View className="w-8 h-8 rounded-full bg-green-500 items-center justify-center">
+            <Text className="text-white font-bold text-lg">NS</Text>
+          </View>
+        </View>
+        
+        <View className="relative">
+          <TouchableOpacity
+            className="p-2"
+            onPress={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <MenuIcon size={24} color="white" />
+          </TouchableOpacity>
+        </View>
       </View>
+
+      {isMenuOpen && (
+        <View
+          className="absolute top-28 right-4 w-48 bg-white rounded-2xl py-2 shadow-xl border border-gray-100"
+          style={{ zIndex: 99999, elevation: 30, position: "absolute" }}
+        >
+          {MenuItems.map((item) => (
+            <TouchableOpacity
+              key={item.label}
+              className="p-3 rounded-xl flex-row items-center active:bg-gray-100 mx-2 my-1"
+              onPress={item.onPress}
+            >
+              {item.icon && <View className="mr-3">{item.icon}</View>}
+              <Text className="text-gray-800 font-medium">{item.label}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
 
       <ScrollView
         className="flex-1 p-4 w-full h-full"
         showsVerticalScrollIndicator={false}
       >
-        <View className="bg-white rounded-xl p-5  mb-6">
-          <Text className="text-gray-500 text-lg font-semibold mb-4">
-            Student Information
-          </Text>
-
-          <View className="flex-row justify-between mb-5">
-            <View className="flex-row items-center w-[48%]">
-              <View className="w-9 h-9 bg-blue-100 rounded-full items-center justify-center flex-none">
-                <User size={18} color="blue" />
-              </View>
-              <View className="ml-3 flex-1">
-                <Text className="text-gray-400 text-[10px] uppercase">
-                  Name
-                </Text>
-                <Text className="text-gray-800" numberOfLines={1}>
-                  Nati Student
-                </Text>
-              </View>
-            </View>
-
-            <View className="flex-row items-center w-[48%]">
-              <View className="w-9 h-9 bg-blue-100 rounded-full items-center justify-center flex-none">
-                <CreditCard size={18} color="blue" />
-              </View>
-              <View className="ml-3 flex-1">
-                <Text className="text-gray-400 text-[10px] uppercase">
-                  Student ID
-                </Text>
-                <Text className="text-gray-800" numberOfLines={1}>
-                  693a67b03ed7
-                </Text>
-              </View>
-            </View>
-          </View>
-
-          <View className="flex-row justify-between">
-            <View className="flex-row items-center w-[48%]">
-              <View className="w-9 h-9 bg-blue-100 rounded-full items-center justify-center flex-none">
-                <Building size={18} color="blue" />
-              </View>
-              <View className="ml-3 flex-1">
-                <Text className="text-gray-400 text-[10px] uppercase">
-                  Department
-                </Text>
-                <Text className="text-gray-800" numberOfLines={1}>
-                  Software Eng.
-                </Text>
-              </View>
-            </View>
-
-            <View className="flex-row items-center w-[48%]">
-              <View className="w-9 h-9 bg-blue-100 rounded-full items-center justify-center flex-none">
-                <Calendar size={18} color="blue" />
-              </View>
-              <View className="ml-3 flex-1">
-                <Text className="text-gray-400 text-[10px] uppercase">
-                  Batch
-                </Text>
-                <Text className="text-gray-800" numberOfLines={1}>
-                  2023
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
         <View className="w-full h-110 ">
           <ScrollView
             horizontal
@@ -149,7 +124,10 @@ const StudentDashboard = () => {
           </ScrollView>
         </View>
         <View className="mb-6">
-          <PaymentList punishments={samplePunishments} onPayClick={handlePayClick} />
+          <PaymentList
+            punishments={samplePunishments}
+            onPayClick={handlePayClick}
+          />
         </View>
       </ScrollView>
     </View>
